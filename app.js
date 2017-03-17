@@ -15,6 +15,7 @@ const Place = models.Place
 const Restaurant = models.Restaurant
 const Activity = models.Activity
 const Hotel = models.Hotel
+const fs = require('fs');
 
 // nunjucks rendering boilerplate:
 app.set('view engine', 'html');
@@ -25,9 +26,15 @@ nunjucks.configure('views', {noCache: true});
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+// this is how we're requiring front-end browser dependencies
+//app.use will route any request made to the path in the first arg. it will route it to the folder specified in express.static() and find the file specified after '/bootstrap'
+app.use('/bootstrap', express.static(path.join(__dirname + '/node_modules/bootstrap/dist')));
+app.use('/jquery', express.static(path.join(__dirname + '/node_modules/jquery/dist')));
+
 
 // routing:
 app.use(routes);
+
 //SYNC
 Place.sync({force: false})
 .then(function(){
