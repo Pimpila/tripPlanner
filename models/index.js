@@ -21,7 +21,7 @@ var Place = db.define('place', {
     allowNull: false
   },
   location: {
-    type: Sequelize.ARRAY(Sequelize.FLOAT(lat, lon)),
+    type: Sequelize.ARRAY(Sequelize.FLOAT()),
     allowNull: false
   }
 })
@@ -32,7 +32,7 @@ var Hotel = db.define('hotel', {
     allowNull: false
   },
   num_stars: {
-    type: Sequelize.FLOAT(num)
+    type: Sequelize.FLOAT()
   },
   amenities: {
     type: Sequelize.TEXT
@@ -69,4 +69,11 @@ Hotel.belongsTo(Place);
 Activity.belongsTo(Place);
 Restaurant.belongsTo(Place);
 
+module.exports = {
+  Place,
+  Hotel,
+  Activity,
+  Restaurant,
+  db
+}
 

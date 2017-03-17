@@ -10,6 +10,11 @@ const nunjucks = require('nunjucks');
 // require own stuff
 const routes = require('./routes');
 const app = express();
+const models = require('./models')
+const Place = models.Place
+const Restaurant = models.Restaurant
+const Activity = models.Activity
+const Hotel = models.Hotel
 
 // nunjucks rendering boilerplate:
 app.set('view engine', 'html');
@@ -23,7 +28,20 @@ app.use(bodyParser.json());
 
 // routing:
 app.use(routes);
-app.listen(3000, function() {
-  console.log('listening on port 3000');
-});
+//SYNC
+Place.sync({force: false})
+.then(function(){
+  return Restaurant.sync({force: false})
+})
+.then(function(){
+  return Activity.sync({force: false})
+})
+.then(function(){
+  return Hotel.sync({force: false})
+})
+.then(function(){
+  app.listen(3000, function() {
+    console.log('listening on port 3000');
+  });
+})
 
