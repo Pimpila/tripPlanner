@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 // routing:
 app.use(routes);
-app.listen(54, function() {
+app.listen(3000, function() {
   console.log('listening on port 3000');
 });
 
